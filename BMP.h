@@ -8,7 +8,7 @@ typedef long LONGS;
 
 //BMP文件头（14字节）  
 typedef struct tagBITMAPFILEHEADER {
-	//WORD bfType;                                  //位图文件的类型，必须为BM(在结构体中读取会发生错误，所以在函数中读取)  ？？？？？
+	//WORDS bfType;                                  //位图文件的类型，必须为BM(在结构体中读取会发生错误，所以在函数中读取)  ？？？？？
 	DWORDS bfSize;                                 //位图文件的大小，以字节为单位  
 	WORDS bfReserved1;                         //位图文件保留字，必须为0  
 	WORDS bfReserved2;                         //位图文件保留字，必须为0  

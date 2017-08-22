@@ -56,29 +56,29 @@ void Image::Binarization()
 	}
 }
 
-void Image::showBmpHead(BMPHEAD BmpHead)
+void Image::showBmpHead()
 {
 	cout << "\n图片文件头:" << endl;
-	cout << "  图片大小:" << BmpHead.bfSize << endl;
-	cout << "  保留字_1:" << BmpHead.bfReserved1 << endl;
-	cout << "  保留字_2:" << BmpHead.bfReserved2 << endl;
-	cout << "  实际位图片数据的偏移字节数:" << BmpHead.bfOffBits << endl;
+	cout << "  图片大小:" << bmpHead.bfSize << endl;
+	cout << "  保留字_1:" << bmpHead.bfReserved1 << endl;
+	cout << "  保留字_2:" << bmpHead.bfReserved2 << endl;
+	cout << "  实际位图片数据的偏移字节数:" << bmpHead.bfOffBits << endl;
 }
 
-void Image::showBmpInfo(BMPNEWS BmpInfo)
+void Image::showBmpInfo()
 {
 	cout << "图片信息头:" << endl;
-	cout << "  结构体的长度:" << BmpInfo.biSize << endl;
-	cout << "  位图宽:" << BmpInfo.biWidth << endl;
-	cout << "  位图高:" << BmpInfo.biHeight << endl;
-	cout << "  平面数:" << BmpInfo.biPlanes << endl;
-	cout << "  采用颜色位数:" << BmpInfo.biBitCount << endl;
-	cout << "  压缩方式:" << BmpInfo.biCompression << endl;
-	cout << "  实际位图数据占用的字节数:" << BmpInfo.biSizeImage << endl;
-	cout << "  X方向分辨率:" << BmpInfo.biXPelsPerMeter << endl;
-	cout << "  Y方向分辨率:" << BmpInfo.biYPelsPerMeter << endl;
-	cout << "  使用的颜色数:" << BmpInfo.biClrUsed << endl;
-	cout << "  重要颜色数:" << BmpInfo.biClrImportant << endl;
+	cout << "  结构体的长度:" << bmpInfo.biSize << endl;
+	cout << "  位图宽:" << bmpInfo.biWidth << endl;
+	cout << "  位图高:" << bmpInfo.biHeight << endl;
+	cout << "  平面数:" << bmpInfo.biPlanes << endl;
+	cout << "  采用颜色位数:" << bmpInfo.biBitCount << endl;
+	cout << "  压缩方式:" << bmpInfo.biCompression << endl;
+	cout << "  实际位图数据占用的字节数:" << bmpInfo.biSizeImage << endl;
+	cout << "  X方向分辨率:" << bmpInfo.biXPelsPerMeter << endl;
+	cout << "  Y方向分辨率:" << bmpInfo.biYPelsPerMeter << endl;
+	cout << "  使用的颜色数:" << bmpInfo.biClrUsed << endl;
+	cout << "  重要颜色数:" << bmpInfo.biClrImportant << endl;
 }
 
 bool Image::readImage()
@@ -101,9 +101,9 @@ bool Image::readImage()
 		}
 		height=bmpInfo.biHeight;
 		width = bmpInfo.biWidth;
-		width = (width*sizeof(BYTES) + 3) / 4 * 4;                              //!!!
+		width = (width*sizeof(BYTES) + 3) / 4 * 4; 
 		imagedata = new IMAGEDATA[width*height];                      //!!!
-		fread(imagedata, sizeof(IMAGEDATA)*width, height, fpin);   //!!!
+		fread(imagedata, sizeof(IMAGEDATA)*width, height, fpin);      //!!!
 		fclose(fpin);
 		return true;
 	}

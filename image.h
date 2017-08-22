@@ -12,9 +12,9 @@ public:
 	bool writeImage(char *name);                                //保存图片  
 	void makeGray();                                                    //将彩色图转换为灰度图  
 	void Binarization();                                                 //二值化  
-	void showBmpHead(BMPHEAD BmpHead);         //显示信息头
+	void showBmpHead();         //显示信息头
 	int getWidth() { return width; } //显示文件头  
-	void showBmpInfo(BMPNEWS BmpInfo);             
+	void showBmpInfo();             
 	int getHeight() { return height; }
 	IMAGEDATA *getData() { return imagedata; }
 private:                                               

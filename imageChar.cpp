@@ -1,14 +1,19 @@
+
 #include<iostream>
 #include"image.h"
 using namespace std;
 
 int main()
 {
-	Image bmp("e:\\c++\\imageChar\\image\\xx.bmp");
-	bmp.makeGray();
-	bmp.writeImage("..\\image\\xx1.bmp");
-	bmp.Binarization();
-	bmp.writeImage("..\\image\\xx2.bmp");
+	Image bmp("e:\\c++\\imageChar\\image\\test.bmp");
+	//bmp.makeGray();
+	bmp.showBmpHead();
+	bmp.showBmpInfo();
+	cout<<bmp.getWidth()<<endl;
+	cout<<bmp.getHeight()<<endl;
+	bmp.writeImage("..\\image\\sea1.bmp");
+	//bmp.Binarization();
+	bmp.writeImage("..\\image\\sea2.bmp");
 	
 	/*
 	IMAGEDATA *data = bmp.getData();
@@ -27,6 +32,7 @@ int main()
 	*/
 
 	int a;
+	cout << "success" << endl;
 	cin >> a;
 	return 0;
 }
