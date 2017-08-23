@@ -17,13 +17,11 @@ Image::~Image()
 
 bool Image::writeImage(char *name)
 {
-	if (!fopen_s(&fpout, name, "w"))
+	if (!fopen_s(&fpout, name, "wb"))
 	{
-		WORDS ftype = 0x4d42;
-		fwrite(&ftype, sizeof(WORDS), 1, fpout);
-		fwrite(&bmpHead, sizeof(BMPHEAD), 1, fpout);
-		fwrite(&bmpInfo, sizeof(BMPNEWS), 1, fpout);
-		fwrite(imagedata, sizeof(IMAGEDATA)*width,height, fpout);
+		fwrite(&bmpHead, sizeof(BITMAPFILEHEADER), 1, fpout);
+		fwrite(&bmpInfo, sizeof(BITMAPINFOHEADER), 1, fpout);
+		fwrite(imagedata, sizeof(RGB),width*height,fpout);
 		fclose(fpout);
 		return true;
 	}
@@ -59,6 +57,7 @@ void Image::Binarization()
 void Image::showBmpHead()
 {
 	cout << "\n图片文件头:" << endl;
+	cout << "  图片标识：" << bmpHead.bfType << endl;
 	cout << "  图片大小:" << bmpHead.bfSize << endl;
 	cout << "  保留字_1:" << bmpHead.bfReserved1 << endl;
 	cout << "  保留字_2:" << bmpHead.bfReserved2 << endl;
@@ -85,25 +84,13 @@ bool Image::readImage()
 {
 	if (!fopen_s(&fpin, imageName, "rb"))
 	{
-		WORDS ftype;
-		fread(&ftype, sizeof(WORDS), 1, fpin);
-		if (ftype != 0x4d42)
-		{
-			cout << "这不是一个BMP图" << endl;
-			return false;
-		}
-		fread(&bmpHead, sizeof(BMPHEAD), 1, fpin);
-		fread(&bmpInfo, sizeof(BMPNEWS), 1, fpin);
-		if (bmpInfo.biBitCount != 24)
-		{
-			cout << "这不是一个24位图" << endl;
-			return false;
-		}
+		fread(&bmpHead, sizeof(BITMAPFILEHEADER), 1, fpin);
+		fread(&bmpInfo, sizeof(BITMAPINFOHEADER), 1, fpin);
 		height=bmpInfo.biHeight;
 		width = bmpInfo.biWidth;
-		width = (width*sizeof(BYTES) + 3) / 4 * 4; 
-		imagedata = new IMAGEDATA[width*height];                      //!!!
-		fread(imagedata, sizeof(IMAGEDATA)*width, height, fpin);      //!!!
+		width = (width*sizeof(BYTE) + 3) / 4 * 4; 
+		imagedata = new RGB[width*height];                      //!!!
+		fread(imagedata,sizeof(RGB),height*width,fpin);      //!!!
 		fclose(fpin);
 		return true;
 	}
